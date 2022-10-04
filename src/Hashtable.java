@@ -3,22 +3,19 @@ import java.nio.file.*;
 import java.util.*;
 
 public class Hashtable {
-    private LinkedList hashTable;
     private int numberOfCollisions;
     private LinkedList[] nodes;
     private String collisions;
 
     public Hashtable() {
-        hashTable = new LinkedList();
         numberOfCollisions = 0;
         nodes = new LinkedList[151];
-        collisions = "";
     }
 
     public int hash(String element) {
         int hash = 0;
         for (int i = 0; i < element.length(); i++) {
-            hash += (7 * element.charAt(i)) % nodes.length;
+            hash += ((i + 1) * element.charAt(i)) % nodes.length;
         }
         return hash;
     }
@@ -56,7 +53,7 @@ public class Hashtable {
     public int getTotElements() {
         int totElements = 0;
         for (int i = 0; i < nodes.length; i++) {
-            if (nodes[i] == null) ;
+            if (nodes[i] == null);
             else totElements += nodes[i].getTotElements();
         }
         return totElements;
@@ -74,18 +71,20 @@ public class Hashtable {
     public static void main(String[] args) throws IOException {
         Hashtable hashTable = new Hashtable();
         String[] names = new String[114];
+        final String LS = System.getProperty("line.separator");
 
         try {
             BufferedReader b = new BufferedReader(new FileReader(new File("src/navn.txt")));
             Scanner sc = new Scanner(b);
-            int num = 0;
             if (!sc.hasNext()) {
                 System.out.println("File is empty");
             } else {
                 while (sc.hasNext()) {
-                    String data = sc.nextLine();
-                    names[num] = data;
-                    num++;
+                    for (int i = 0; i < names.length; i++) {
+                        String data = sc.nextLine();
+                        names[i] = data;
+                        hashTable.insert(names[i]);
+                    }
                 }
                 sc.close();
             }
@@ -93,12 +92,10 @@ public class Hashtable {
             e.printStackTrace();
         }
 
-        for (int i = 0; i < names.length; i++) {
-            hashTable.insert(names[i]);
-        }
-
         System.out.println(hashTable.getCollisions());
-        System.out.println("Number of collisions: " + hashTable.getNumberOfCollisions() + "\nCollisions per person: " + hashTable.getCollisionsPerPerson() + "\nLoad: " + hashTable.getLoad());
+        System.out.println("Number of collisions: " + hashTable.getNumberOfCollisions() + LS +
+                "Collisions per person: " + hashTable.getCollisionsPerPerson() + LS +
+                "Load: " + hashTable.getLoad());
 
         //Slår opp på person
         System.out.println("Find me: " + hashTable.findPerson("Daniel André Vestly Evensen"));
@@ -126,11 +123,9 @@ public class Hashtable {
 
         @Override
         public String toString() {
-            return "Node {" +
-                    " element = '" + element + '\'' +
-                    ", neste = " + next +
-                    ", key = " + key +
-                    '}';
+            return "Name = '" + element + '\'' +
+                    ", neste = ( " + next +
+                    " ), key = " + key;
         }
     }
 
@@ -163,20 +158,14 @@ public class Hashtable {
             return totElements;
         }
 
-        public HashNode getHead() {
-            return head;
-        }
-
         public HashNode getTail() {
             return tail;
         }
 
         @Override
         public String toString() {
-            return "LinkedList {" +
-                    " head = " + head.toString() +
-                    ", totElements = " + totElements +
-                    "}";
+            return "From LinkedList: " + head.toString() +
+                    ", total Elements/names = " + totElements;
         }
     }
 }
