@@ -11,14 +11,14 @@ public class Hashtable {
     public Hashtable() {
         hashTable = new LinkedList();
         numberOfCollisions = 0;
-        nodes = new LinkedList[145];
+        nodes = new LinkedList[151];
         collisions = "";
     }
 
     public int hash(String element) {
         int hash = 0;
         for (int i = 0; i < element.length(); i++) {
-            hash += (13 * element.charAt(i)) % nodes.length;
+            hash += (7 * element.charAt(i)) % nodes.length;
         }
         return hash;
     }
@@ -57,7 +57,7 @@ public class Hashtable {
         int totElements = 0;
         for (int i = 0; i < nodes.length; i++) {
             if (nodes[i] == null) ;
-            else totElements = nodes[i].getTotElements();
+            else totElements += nodes[i].getTotElements();
         }
         return totElements;
     }
