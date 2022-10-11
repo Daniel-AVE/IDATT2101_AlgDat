@@ -9,12 +9,6 @@ import java.util.Random;
 public class stockSales {
     private static int[] stocks = {-1, 3, -9, 2, 2, -1, 2, -1, -5};
 
-
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
     public static void main(String[] args) {
         runTimeForProgram();
         System.out.println(highestProfitFromSalesOfStocks(stocks));
@@ -26,12 +20,7 @@ public class stockSales {
         runTime(1000000);
     }
 
-    /**
-     * Highest profit from sales of stocks string.
-     *
-     * @param stocks the stocks
-     * @return the string
-     */
+
     public static String highestProfitFromSalesOfStocks(int[] stocks) {
         int profit = 0; //1
         int stockValue; //1
@@ -66,12 +55,6 @@ public class stockSales {
 
     }
 
-    /**
-     * Create array with n elements int [ ].
-     *
-     * @param number the number
-     * @return the int [ ]
-     */
     public static int[] createArrayWithNElements(int number) {
         int[] nSizeArray = new int[number];
         Random random = new Random();
@@ -82,9 +65,6 @@ public class stockSales {
        return nSizeArray;
     }
 
-    /**
-     * Run time for program.
-     */
     public static void runTimeForProgram() {
         final long timeStart = System.currentTimeMillis();
 
@@ -95,11 +75,6 @@ public class stockSales {
         System.out.println("Miliseconds per round with main program: " + totalTime);
     }
 
-    /**
-     * Run time.
-     *
-     * @param n the n
-     */
     public static void runTime(int n) {
         final long timeStart = System.currentTimeMillis();
 
